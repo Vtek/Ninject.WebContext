@@ -50,7 +50,7 @@ namespace Ninject.WebContext
 			if (member == null || propertyInfo == null || !propertyInfo.PropertyType.IsInterface)
 				return false;
 
-			return propertyInfo.CanWrite && ShouldInjectPropertyTypes.Any(x => x.IsAssignableFrom(propertyInfo.PropertyType));
+			return propertyInfo.CanWrite && ShouldInjectPropertyTypes.Any(x => x == propertyInfo.PropertyType || x.IsAssignableFrom(propertyInfo.PropertyType));
 		}
 
 		/// <summary>

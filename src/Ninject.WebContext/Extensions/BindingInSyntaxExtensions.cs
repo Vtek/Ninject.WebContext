@@ -15,7 +15,7 @@ namespace Ninject.Modules
 		/// <returns>The auto injection.</returns>
 		/// <param name="syntax">Syntax.</param>
 		/// <typeparam name="T">The 1st type parameter.</typeparam>
-		public static IBindingWhenInNamedWithOrOnSyntax<T> WithAutoInjection<T>(this IBindingWhenInNamedWithOrOnSyntax<T> syntax)
+		public static IBindingToSyntax<T> WithAutoInjection<T>(this IBindingToSyntax<T> syntax)
 		{
 			AutoInjection.AddTypeToInject(typeof(T));
 			return syntax;

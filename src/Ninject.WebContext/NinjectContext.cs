@@ -177,6 +177,7 @@ namespace Ninject.WebContext
 				if (_isInitialized) return;
 
 				_kernel = new StandardKernel(_modules.ToArray());
+				_kernel.Components.Remove<IInjectionHeuristic, StandardInjectionHeuristic>();
 				_kernel.Components.Add<IInjectionHeuristic, AutoInjection>();
 
 				if(_useMvc)
