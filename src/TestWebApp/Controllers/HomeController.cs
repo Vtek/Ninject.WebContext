@@ -9,7 +9,7 @@ namespace TestWebApp.Controllers
 {
     public class HomeController : Controller
     {
-		public ITestService TestService { get; set; }
+		private ITestService TestService { get; set; }
 
         public ActionResult Index()
         {

@@ -1,9 +1,4 @@
-﻿
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 using Ninject.WebContext;
 using Ninject.Modules;
@@ -36,11 +31,11 @@ namespace TestWebApp
 		}
 	}
 
-	public class TestModule : NinjectModule
+	public class TestModule : AutoInjectionModule
 	{
 		public override void Load()
 		{
-			Bind<ITestService>().WithAutoInjection().To<TestService>().InHttpScope();
+			Bind<ITestService>().To<TestService>().InHttpScope();
 		}
 	}
 }

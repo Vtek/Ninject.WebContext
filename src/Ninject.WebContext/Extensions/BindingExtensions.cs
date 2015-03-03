@@ -1,5 +1,4 @@
-﻿using Ninject.WebContext;
-using Ninject.Syntax;
+﻿using Ninject.Syntax;
 using System.Web;
 
 namespace Ninject.Modules
@@ -9,17 +8,6 @@ namespace Ninject.Modules
 	/// </summary>
 	public static class BindingInSyntaxExtensions
 	{
-		/// <summary>
-		/// Define the auto injection on type T.
-		/// </summary>
-		/// <returns>The auto injection.</returns>
-		/// <param name="syntax">Syntax.</param>
-		/// <typeparam name="T">The 1st type parameter.</typeparam>
-		public static IBindingToSyntax<T> WithAutoInjection<T>(this IBindingToSyntax<T> syntax)
-		{
-			AutoInjection.AddTypeToInject(typeof(T));
-			return syntax;
-		}
 
 		/// <summary>
 		/// Set the scope of binding in HttpContext.

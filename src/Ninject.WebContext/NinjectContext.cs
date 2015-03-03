@@ -178,6 +178,7 @@ namespace Ninject.WebContext
 
 				_kernel = new StandardKernel(_modules.ToArray());
 				_kernel.Components.Remove<IInjectionHeuristic, StandardInjectionHeuristic>();
+				_kernel.Settings.InjectNonPublic = true;
 				_kernel.Components.Add<IInjectionHeuristic, AutoInjection>();
 
 				if(_useMvc)
