@@ -23,7 +23,7 @@ PM> Install-Package Ninject.WebContext
 ## Getting started
 
 This library is a complet implementation of IoC with Ninject. It ease you the implementation in your web project.
-First you need to create an automatic injection module to define your Binding :
+First you need to create an automatic injection module to define your bindings :
 
 ```csharp
 public class MyModule : AutoInjectionModule
@@ -35,13 +35,13 @@ public class MyModule : AutoInjectionModule
 }
 ```
 
- In Ninject, Bindings are in transient scope by default. The library allow you to set the scope in the Http request scope :
+ In Ninject, bindings are in transient scope by default. The library allow you to set the Http request as scope :
 
  ```csharp
  Bind<IMyInterface>().To<IMyImplementation>().InHttpScope();
  ```
 
- When your module is ready, you have done 95% of the code ! Start the NinjectContext in your Global.asax application start method with one line :
+ When your modules are ready, you have done 95% of the work ! Start the NinjectContext in your Global.asax application start method with one line :
 
  ```csharp
 NinjectContext
