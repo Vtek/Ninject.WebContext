@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>Ninject.WebContext</id>
+    <version>1.0.0</version>
+    <title>Ninject WebContext</title>
+    <authors>Sylvain PONTOREAU</authors>
+    <owners>Sylvain PONTOREAU</owners>
+    <licenseUrl>https://github.com/Vtek/Ninject.WebContext/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Vtek/Ninject.WebContext</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Smart IoC library for your WebApp</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright © PONTOREAU Sylvain 2015</copyright>
+    <tags>PowerBI</tags>
+    <dependencies>
+      <dependency id="Microsoft.AspNet.Mvc" version="5.0.0" />
+      <dependency id="Microsoft.AspNet.Razor" version="3.0.0" />
+	  <dependency id="Microsoft.AspNet.WebApi" version="5.0.0" />
+	  <dependency id="Microsoft.AspNet.WebApi.Client" version="5.0.0" />
+	  <dependency id="Microsoft.AspNet.WebApi.Core" version="5.0.0" />
+	  <dependency id="Microsoft.AspNet.WebApi.WebHost" version="5.0.0" />
+	  <dependency id="Microsoft.AspNet.WebPages" version="3.0.0" />
+	  <dependency id="Microsoft.Web.Infrastructure" version="1.0.0.0" />
+	  <dependency id="Newtonsoft.Json" version="6.0.8" />
+	  <dependency id="Ninject" version="3.2.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="Ninject.WebContext.dll" target="lib\net45" /> 
+  </files>
+</package>
