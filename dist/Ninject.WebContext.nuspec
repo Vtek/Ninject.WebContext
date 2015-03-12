@@ -12,7 +12,7 @@
     <description>Smart IoC library for your WebApp</description>
     <releaseNotes></releaseNotes>
     <copyright>Copyright © PONTOREAU Sylvain 2015</copyright>
-    <tags>PowerBI</tags>
+    <tags>Ninject MVC WebApi IoC</tags>
     <dependencies>
       <dependency id="Microsoft.AspNet.Mvc" version="5.0.0" />
       <dependency id="Microsoft.AspNet.Razor" version="3.0.0" />
