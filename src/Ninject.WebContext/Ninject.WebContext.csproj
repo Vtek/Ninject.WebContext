@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -69,21 +69,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NinjectControllerActionInvoker.cs" />
+    <Compile Include="NinjectFilterProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="NinjectContext.cs" />
-    <Compile Include="Component\AutoInjection.cs" />
-    <Compile Include="Release.cs" />
-    <Compile Include="NinjectControllerActivator.cs" />
-    <Compile Include="NinjectControllerFactory.cs" />
-    <Compile Include="Module\AutoInjectionModule.cs" />
-    <Compile Include="Extensions\BindingExtensions.cs" />
+    <Compile Include="AutoInjection.cs" />
+    <Compile Include="AutoInjectionModule.cs" />
+    <Compile Include="BindingExtensions.cs" />
+    <Compile Include="NinjectDependencyResolver.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <Folder Include="Component\" />
-    <Folder Include="Extensions\" />
-    <Folder Include="Module\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

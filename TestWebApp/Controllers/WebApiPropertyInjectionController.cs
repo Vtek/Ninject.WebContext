@@ -13,6 +13,7 @@ namespace TestWebApp.Controllers
             TestService = testService;
         }
 
+        [TestWebApiFilter]
         public TestModel Get()
         {
             return new TestModel

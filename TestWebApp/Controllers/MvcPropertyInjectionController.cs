@@ -12,7 +12,7 @@ namespace TestWebApp.Controllers
     {
         public ITestService TestService { get; set; }
 
-
+        [TestMvcFilter]
         [HttpGet]
         public ActionResult Index()
         {

@@ -3,97 +3,68 @@ using System.Linq;
 using Ninject.Modules;
 using System.Collections.Generic;
 using Ninject.Selection.Heuristics;
-using System.IO;
 using System.Web.Mvc;
 using System.Web.Http;
-using System.Web.Http.Dispatcher;
 
 namespace Ninject.WebContext
 {
-	/// <summary>
-	/// Ninject context.
-	/// </summary>
-	public class NinjectContext
+    /// <summary>
+    /// Ninject context.
+    /// </summary>
+    public class NinjectContext
 	{
-		/// <summary>
-		/// Initializes a new instance of the NinjectContext class.
+        /// <summary>
+        /// The synchronize root object.
+        /// </summary>
+        static readonly object SyncRoot = new object();
+
+        /// <summary>
+        /// Single instance of the NinjectContext
+        /// </summary>
+        static readonly NinjectContext _instance = new NinjectContext();
+
+        /// <summary>
+		/// Ninject module to use in the context.
 		/// </summary>
-		NinjectContext()
-		{
-			_modules = new List<INinjectModule>();
-		}
+        readonly IList<INinjectModule> _modules = new List<INinjectModule>();
 
 		/// <summary>
-		/// The instance.
+		/// True if NinjectContext was initialized, otherwise false
 		/// </summary>
-		static NinjectContext _instance;
+		static bool _initialized;
 
 		/// <summary>
-		/// The is initialized.
-		/// </summary>
-		bool _isInitialized;
-
-		/// <summary>
-		/// The use mvc.
+		/// True if Mvc is use in the WebApplication, otherwise false.
 		/// </summary>
 		bool _useMvc;
 
-		/// <summary>
-		/// The use web API.
-		/// </summary>
-		bool _useWebApi;
+        bool _withAutoInjection;
 
-		/// <summary>
-		/// The kernel.
-		/// </summary>
-		IKernel _kernel;
+        /// <summary>
+        /// True if WebApi is use in the WebApplication, otherwise false.
+        /// </summary>
+        bool _useWebApi;
 
-		/// <summary>
-		/// The modules.
-		/// </summary>
-		readonly IList<INinjectModule> _modules;
-
-		/// <summary>
-		/// The synchronize root object.
-		/// </summary>
-		static readonly object SyncRoot = new object();
-
-		/// <summary>
-		/// Gets the instance.
-		/// </summary>
-		/// <value>The instance.</value>
-		public static NinjectContext Instance
+        /// <summary>
+        /// Gets the instance.
+        /// </summary>
+        /// <value>The instance.</value>
+        public static NinjectContext Get()
 		{
-			get
-			{
 				lock (SyncRoot)
-					return _instance ?? (_instance = new NinjectContext());
-			}
+					return _instance;
 		}
 
 		/// <summary>
 		/// Gets a value indicating whether this instance is initialized.
 		/// </summary>
 		/// <value><c>true</c> if this instance is initialized; otherwise, <c>false</c>.</value>
-		public bool IsInitialized
+		public bool Initialized
 		{
 			get
 			{
 				lock (SyncRoot)
-					return _isInitialized;
-			}
-		}
-
-		/// <summary>
-		/// Gets the kernel.
-		/// </summary>
-		/// <value>The kernel.</value>
-		public IKernel Kernel
-		{
-			get
-			{
-				lock (SyncRoot)
-					return _kernel;
+					return _initialized;
 			}
 		}
 
@@ -131,7 +102,7 @@ namespace Ninject.WebContext
 		{
 			lock (SyncRoot)
 			{
-				if (_isInitialized) return this;
+				if (Initialized) return this;
 
 				var module = (T)Activator.CreateInstance(typeof(T));
 
@@ -150,7 +121,9 @@ namespace Ninject.WebContext
 		{
 			lock(SyncRoot)
 			{
-				_useMvc = true;
+                if (Initialized) return this;
+
+                _useMvc = true;
 				return this;
 			}
 		}
@@ -162,10 +135,23 @@ namespace Ninject.WebContext
 		{
 			lock(SyncRoot)
 			{
-				_useWebApi = true;
+                if (Initialized) return this;
+
+                _useWebApi = true;
 				return this;
 			}
 		}
+
+        public NinjectContext WithAutoInjection()
+        {
+            lock (SyncRoot)
+            {
+                if (Initialized) return this;
+
+                _withAutoInjection = true;
+                return this;
+            }
+        }
 
 		/// <summary>
 		/// Initialize this instance.
@@ -174,37 +160,29 @@ namespace Ninject.WebContext
 		{
 			lock (SyncRoot)
 			{
-				if (_isInitialized) return;
+                if (Initialized) return;
 
-				_kernel = new StandardKernel(_modules.ToArray());
-				_kernel.Components.Remove<IInjectionHeuristic, StandardInjectionHeuristic>();
-				_kernel.Settings.InjectNonPublic = true;
-				_kernel.Components.Add<IInjectionHeuristic, AutoInjection>();
+                var kernel = new StandardKernel(_modules.ToArray());
+                if (_withAutoInjection)
+                    kernel.Components.Add<IInjectionHeuristic, AutoInjection>();
+                
+                var ninjectDependencyResolver = new NinjectDependencyResolver(kernel);
 
-				if(_useMvc)
-					ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory());
+                if (_useMvc)
+                {
+                    kernel.Bind<IActionInvoker>().To<NinjectControllerActionInvoker>().InTransientScope();
+                    DependencyResolver.SetResolver(ninjectDependencyResolver);
+                }   
 
-				if(_useWebApi)
-					GlobalConfiguration.Configuration.Services.Replace(typeof(IHttpControllerActivator), new NinjectControllerActivator());
+                if(_useWebApi)
+                {
+                    GlobalConfiguration.Configuration.DependencyResolver = ninjectDependencyResolver;
+                    GlobalConfiguration.Configuration.Services.Replace(typeof(System.Web.Http.Filters.IFilterProvider), new NinjectFilterProvider(kernel));
+                }
+                    
 
-				_isInitialized = true;
+                _initialized = true;
 			}
-		}
-
-		/// <summary>
-		/// Reset this instance.
-		/// </summary>
-		public void Reset()
-		{
-			lock (SyncRoot)
-			{
-				AutoInjection.ShouldInjectPropertyTypes.Clear();
-				_instance = null;
-				_modules.Clear();
-				_kernel.Dispose();
-				_isInitialized = false;
-			}
-
 		}
 	}
 }
