@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ninject.WebContext", "src\Ninject.WebContext\Ninject.WebContext.csproj", "{6FDA0309-B489-40D7-B45A-71A1B36A2CB6}"
-EndProject
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample", "Sample", "{1639FBAD-CE30-47FD-BDD0-D4054B619C73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWebApp", "src\TestWebApp\TestWebApp.csproj", "{3F1003FF-3DBB-459A-A97A-51A04CAD2696}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ninject.WebContext", "src\Ninject.WebContext\Ninject.WebContext.csproj", "{6FDA0309-B489-40D7-B45A-71A1B36A2CB6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWebApp", "TestWebApp\TestWebApp.csproj", "{14CE0FDA-4A04-4650-AEDD-42DB6054590E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,16 +15,19 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3F1003FF-3DBB-459A-A97A-51A04CAD2696}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3F1003FF-3DBB-459A-A97A-51A04CAD2696}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3F1003FF-3DBB-459A-A97A-51A04CAD2696}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3F1003FF-3DBB-459A-A97A-51A04CAD2696}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6FDA0309-B489-40D7-B45A-71A1B36A2CB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6FDA0309-B489-40D7-B45A-71A1B36A2CB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6FDA0309-B489-40D7-B45A-71A1B36A2CB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6FDA0309-B489-40D7-B45A-71A1B36A2CB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14CE0FDA-4A04-4650-AEDD-42DB6054590E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14CE0FDA-4A04-4650-AEDD-42DB6054590E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14CE0FDA-4A04-4650-AEDD-42DB6054590E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14CE0FDA-4A04-4650-AEDD-42DB6054590E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{3F1003FF-3DBB-459A-A97A-51A04CAD2696} = {1639FBAD-CE30-47FD-BDD0-D4054B619C73}
+		{14CE0FDA-4A04-4650-AEDD-42DB6054590E} = {1639FBAD-CE30-47FD-BDD0-D4054B619C73}
 	EndGlobalSection
 EndGlobal

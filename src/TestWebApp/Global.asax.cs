@@ -24,7 +24,7 @@ namespace TestWebApp
 		{
 			AreaRegistration.RegisterAllAreas();
 
-			NinjectContext.Instance.AddModule<TestModule>().UseMvc().UseWebApi().Initialize();
+			NinjectContext.Get().AddModule<TestModule>().UseMvc().UseWebApi().Initialize();
 
 			RegisterGlobalFilters(GlobalFilters.Filters);
 			RegisterRoutes(RouteTable.Routes);
