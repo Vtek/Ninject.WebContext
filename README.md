@@ -6,23 +6,17 @@ Smart IoC library for your WebApp.
 
 ## Installation
 
+**/!\ Take care**
+Version 1.0 is now obsolete. You need to use the alpha version 1.1.1 to use all the improvement from the Ninject.CoreContext.
+
 ```
-PM> Install-Package Ninject.WebContext
+PM> Install-Package Ninject.WebContext -Pre
 ```
-
-
-## Features
-
-	* Simple, straightforward and fluent
-	* Start all IoC features in one line of code
-	* Automatic injection on properties
-	* Controller activator & factory On-Demand
-	* Http scoping
 
 
 ## Getting started
 
-This library is a complet implementation of IoC with Ninject. It ease you the implementation in your web project.
+This library is a complet implementation of IoC with Ninject for Asp.Net MVC & WebApi (Version 5.0.0). It ease you the implementation in your web project.
 First you need to create an automatic injection module to define your bindings :
 
 ```csharp
@@ -35,26 +29,27 @@ public class MyModule : AutoInjectionModule
 }
 ```
 
- In Ninject, bindings are in transient scope by default. The library allow you to set the Http request as scope :
+In Ninject, bindings are in transient scope by default. The library allow you to set the Http request as scope :
 
- ```csharp
- Bind<IMyInterface>().To<IMyImplementation>().InHttpScope();
- ```
+```csharp
+Bind<IMyInterface>().To<IMyImplementation>().InHttpScope();
+```
 
- When your modules are ready, you have done 95% of the work ! Start the NinjectContext in your Global.asax application start method with one line :
+When your modules are ready, you have done 95% of the work ! Start the NinjectContext in your Global.asax application start method with one line :
 
- ```csharp
+```csharp
 NinjectContext
-	.Instance
+	.Get()
 	.AddModule<MyModule>()
 	.UseMvc()
 	.UseWebApi()
+	.WithAutoInjection()
 	.Initialize();
- ```
+```
 
  And now in your controller, see the magic :
 
-  ```csharp
+```csharp
 public class MyController : Controller
 {
 	IMyInterace MyInterface { get; set; }
@@ -68,9 +63,29 @@ public class MyController : Controller
 ```
 
 
-## Mono
+## About AutoInjection
 
-Currently, the library does not work with Mono due to an injection problem in the Ninject source code. A specific library for Mono is coming !
+AutoInjection is an out of the box feature in the library but you must activate it with WithAutoInjection method. If you want to use a classic IoC implementation, don't call this method and define constructor with dependecies in parameter :
+
+```csharp
+public class MyController : Controller
+{
+	IMyInterace MyInterface { get; set; }
+	
+	public MyController(IMyInterace myInterface)
+	{
+		MyInterface = myInterface;
+	}
+	
+	public ActionResult Index()
+	{
+		var myValue = MyInterface.GetValue();
+		return View(myValue);
+	}
+}
+```
+
+If you do that, you can use standard NinjectModule to define your Bind but without the use of AutoInjection, Filter can't be inject (You can inject dependencies into a constructor of an attribute).
 
 
 ## Licence
