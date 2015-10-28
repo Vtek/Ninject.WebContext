@@ -7,7 +7,7 @@ Smart IoC library for your WebApp.
 ## Installation
 
 **/!\ Take care**
-Version 1.0 is now obsolete. You need to use the alpha version 1.1.1 to use all the improvement from the Ninject.CoreContext.
+Version 1.0 is now obsolete. You need to use the alpha version 1.1 to use all the improvement from the Ninject.CoreContext.
 
 ```
 PM> Install-Package Ninject.WebContext -Pre
