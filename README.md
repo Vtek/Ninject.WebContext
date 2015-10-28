@@ -52,7 +52,7 @@ NinjectContext
 ```csharp
 public class MyController : Controller
 {
-	IMyInterace MyInterface { get; set; }
+	public IMyInterace MyInterface { get; set; }
 
 	public ActionResult Index()
 	{
