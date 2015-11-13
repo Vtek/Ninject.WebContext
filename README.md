@@ -52,7 +52,7 @@ NinjectContext
 ```csharp
 public class MyController : Controller
 {
-	IMyInterace MyInterface { get; set; }
+	public IMyInterace MyInterface { get; set; }
 
 	public ActionResult Index()
 	{
@@ -86,6 +86,11 @@ public class MyController : Controller
 ```
 
 If you do that, you can use standard NinjectModule to define your Bind but without the use of AutoInjection, Filter can't be inject (You can inject dependencies into a constructor of an attribute).
+
+
+## Sample
+
+You can find a complete sample [here](https://github.com/Vtek/Ninject.CoreContext.Samples/tree/master/src/WebContextSample).
 
 
 ## Licence
